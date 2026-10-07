@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Main-Class: org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader
+Rsrc-Class-Path: ./ fontbox-2.0.25.jar org-apache-commons-logging.jar pd
+ fbox-2.0.25.jar pdfbox-debugger-2.0.25.jar pdfbox-tools-2.0.25.jar pref
+ light-2.0.25.jar xmpbox-2.0.25.jar
+Rsrc-Main-Class: GetCharLocationAndSize
+Class-Path: .
+
