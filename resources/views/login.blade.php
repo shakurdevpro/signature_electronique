@@ -1,129 +1,207 @@
-@extends('layouts.base')
-@section('content')
-<div class="authentication-wrapper authentication-cover authentication-bg">
-    <div class="authentication-inner row">
-      <!-- /Left Text -->
-      <div class="d-none d-lg-flex col-lg-7 p-0">
-        <div class="auth-cover-bg auth-cover-bg-color d-flex justify-content-center align-items-center">
-          <img src="{{asset('img/illustrations/signature electronique2 2003.png')}}" alt="auth-login-cover" class="img-fluid my-5 auth-illustration" data-app-light-img="illustrations/jojo.png" data-app-dark-img="illustrations/auth-login-illustration-dark.html">
+@extends('layouts.auth')
 
-          <img src="{{asset('img/illustrations/bg-shape-image-light.png')}}" alt="auth-login-cover" class="platform-bg" data-app-light-img="illustrations/bg-shape-image-light.png" data-app-dark-img="illustrations/bg-shape-image-dark.html">
-        </div>
-      </div>
-      <!-- /Left Text -->
+@section('title', 'Connexion')
 
-      <!-- Login -->
-      <div class="d-flex col-12 col-lg-5 align-items-center p-sm-5 p-4">
-        <div class="w-px-400 mx-auto">
-          <!-- Logo -->
-          <div class="app-brand mb-4">
-            <a href="#" class="app-brand-link gap-2">
-              <span class="app-brand-logo demo">
-                <img src="{{asset('img/logo.jpg')}}" width="55%" height="auto">
-               </span>
-            </a>
-          </div>
-          <!-- /Logo -->
-          <h3 class="mb-1 fw-bold">Bienvenue sur e-signature! 👋</h3>
-          <!--<p class="mb-4">Please sign-in to your account and start the adventure</p>-->
-          @if (session('message'))
-          <div id="alert-message"  class="alert alert-danger">
-              {{ session('message') }}
-          </div>
-
-          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-          <script>
-              $(document).ready(function() {
-                  setTimeout(function() {
-                      $('#alert-message').fadeOut('fast');
-                  }, 10000);
-              });
-          </script>
-
-      @endif
-          
-            <form method="post" action="{{route('envoyer')}}" class="mb-3">
-                @csrf
-            <div class="mb-3">
-              <label for="matricule" class="form-label">Matricule</label>
-              <input type="text" class="form-control" id="matricule" name="matricule" placeholder="matricule" autofocus required oninput="convertirEnMajuscules(this)">
-            </div>
-            <div class="mb-3 form-password-toggle">
-              <div class="d-flex justify-content-between">
-                <label class="form-label" for="password">Mot de passe</label>
-                @if (Route::has('password.request'))
-                    <a href="{{route('password.request')}}">
-                        <small>Mot de passe oublié</small>
-                    </a>
-                @endif
-              </div>
-              <div class="input-group input-group-merge">
-                <input type="password" id="password" class="form-control" name="password" placeholder=".............." aria-describedby="password"  required/>
-                <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off" id="affiche"></i></span>
-              </div>
-            </div>
-
-
-            <script>
-    function convertirEnMajuscules(input) {
-        input.value = input.value.toUpperCase();
-    }
-</script>
-
-            <!-- div class="mb-3">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="remember-me">
-                <label class="form-check-label" for="remember-me">
-                  Rester connecté
-                </label>
-              </div>
-            </div !-->
-            <button class="btn btn-primary d-grid w-100">Connexion</button>
-          </form>
-        <!--
-          <div class="divider my-4">
-            <div class="divider-text">or</div>
-          </div>
-
-          <div class="d-flex justify-content-center">
-            <a href="javascript:;" class="btn btn-icon btn-label-facebook me-3">
-              <i class="tf-icons fa-brands fa-facebook-f fs-5"></i>
-            </a>
-
-            <a href="javascript:;" class="btn btn-icon btn-label-google-plus me-3">
-              <i class="tf-icons fa-brands fa-google fs-5"></i>
-            </a>
-
-            <a href="javascript:;" class="btn btn-icon btn-label-twitter">
-              <i class="tf-icons fa-brands fa-twitter fs-5"></i>
-            </a>
-          </div>
-        -->
-        </div>
-      </div>
-      <!-- /Login -->
-    </div>
-  </div>
-
-  <!-- / Content -->
+@section('styles')
+    <!-- StyleSheets -->
+    <link rel="stylesheet" href="{{ asset('signature/assets/css/dashlite.css?ver=2.4.0') }}">
+    <link id="skin-default" rel="stylesheet" href="{{ asset('signature/assets/css/theme.css?ver=2.4.0') }}">
 @endsection
 
+@section('content')
 
-<script>
+    <div class="nk-split-content nk-block-area nk-block-area-column nk-auth-container bg-white">
+
+        <!-- Mobile Info Button -->
+        <div class="absolute-top-right d-lg-none p-3 p-sm-5">
+            <a href="#" class="toggle btn-white btn btn-icon btn-light" data-target="athPromo"
+                aria-label="Afficher les informations">
+                <em class="icon ni ni-info"></em>
+            </a>
+        </div>
+
+        <!-- Authentication Body -->
+        <div class="nk-block nk-block-middle nk-auth-body">
+
+            <!-- Logo -->
+            <div class="brand-logo pb-5">
+                <a href="{{ route('login') }}" class="logo-link">
+                    <img class="logo-light logo-img logo-img-lg" src="{{ asset('signature/images/logo-mfp.png') }}"
+                        srcset="{{ asset('signature/images/logo-mfp.png') }} 2x" alt="Logo Signature">
+                    <img class="logo-dark logo-img logo-img-lg" src="{{ asset('signature/images/logo-mfp.png') }}"
+                        srcset="{{ asset('signature/images/logo-mfp.png') }} 2x" alt="Logo Signature - Mode sombre">
+                </a>
+            </div>
+
+            <!-- Header -->
+            <div class="nk-block-head">
+                <div class="nk-block-head-content">
+
+                    <h5 class="nk-block-title">
+                        Connexion à E-Signature
+                    </h5>
+
+                    <div class="nk-block-des">
+                        <p>
+                            Veuillez renseigner votre matricule et votre mot de passe afin d'accéder à votre espace.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+            <!-- .nk-block-head -->
+
+            <!-- Login Form -->
+            <form action="{{ route('envoyer') }}" method="post">
+                @csrf
+                <!-- Username -->
+                <div class="form-group">
+
+                    <div class="form-label-group">
+
+                        <label class="form-label" for="matricule">
+                            Matricule
+                        </label>
 
 
-const inputMotDePasse = document.getElementById("password");
-const boutonAfficher = document.getElementById("affiche");
+                    </div>
 
-boutonAfficher.addEventListener("click", () => {
-  if (inputMotDePasse.type === "password") {
-    inputMotDePasse.type = "text";
-    boutonAfficher.innerHTML = '<i class="ti ti-eye"></i>';
-  } else {
-    inputMotDePasse.type = "password";
-    boutonAfficher.innerHTML = '<i class="ti ti-eye-off"></i>';
-  }
-});
+                    <input type="text" class="form-control form-control-lg" id="matricule" name="matricule"
+                        placeholder="Entrez votre matricule" autofocus required oninput="convertirEnMajuscules(this)">
+
+                </div>
+                <!-- .form-group -->
+
+                <!-- Password -->
+                <div class="form-group">
+
+                    <div class="form-label-group">
+
+                        <label class="form-label" for="password">
+                            Mot de passe
+                        </label>
+
+                        <a class="link link-primary link-sm" tabindex="-1" href="#">
+                            Mot de passe oublié ?
+                        </a>
+
+                    </div>
+
+                    <div class="form-control-wrap">
+
+                        <a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch"
+                            data-target="password" aria-label="Afficher ou masquer le mot de passe">
+
+                            <em class="passcode-icon icon-show icon ni ni-eye"></em>
+                            <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
+
+                        </a>
+
+                        <input type="password" id="password" class="form-control form-control-lg" name="password"
+                            placeholder="Entrez votre mot de passe" aria-describedby="password" required>
+
+                    </div>
+
+                </div>
+                <!-- .form-group -->
+
+                <!-- Submit -->
+                <div class="form-group">
+
+                    <button type="submit" class="btn btn-lg btn-primary btn-block">
+                        Se connecter
+                    </button>
+
+                </div>
+
+            </form>
+            <!-- form -->
+
+            <!-- Register -->
+            <div class="form-note-s2 pt-4">
+                Un souci ?
+                <a href="https://www.fonctionpublique.gouv.ci/index.php/front-page/navigator/contact" target="_blank">
+                    Contactez le support technique
+                </a>
+            </div>
 
 
-</script>
+
+        </div>
+        <!-- .nk-block -->
+
+        <!-- ============================= -->
+        <!-- BEGIN: Footer -->
+        <!-- ============================= -->
+
+        <div class="nk-block nk-auth-footer">
+
+            <div class="nk-block-between">
+
+                <ul class="nav nav-sm">
+
+                    <!-- Terms -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Conditions d'utilisation
+                        </a>
+                    </li>
+
+                    <!-- Privacy -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Politique de confidentialité
+                        </a>
+                    </li>
+
+
+
+                </ul>
+                <!-- .nav -->
+
+            </div>
+            <div class="mt-3">
+                <p>
+                    &copy; {{ date('Y') }} Signature. Tous droits réservés.
+                </p>
+
+            </div>
+
+        </div>
+        <!-- .nk-block -->
+
+    </div>
+    <!-- .nk-split-content -->
+@endsection
+
+@section('scripts')
+    <!-- JavaScript -->
+    <script src="{{ asset('signature/assets/js/bundle.js?ver=2.4.0') }}"></script>
+    <script src="{{ asset('signature/assets/js/scripts.js?ver=2.4.0') }}"></script>
+    <script>
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('#alert-message').fadeOut('fast');
+            }, 10000);
+        });
+    </script>
+    <script>
+        function convertirEnMajuscules(input) {
+            input.value = input.value.toUpperCase();
+        }
+    </script>
+    <script>
+        const inputMotDePasse = document.getElementById("password");
+        const boutonAfficher = document.getElementById("affiche");
+
+        boutonAfficher.addEventListener("click", () => {
+            if (inputMotDePasse.type === "password") {
+                inputMotDePasse.type = "text";
+                boutonAfficher.innerHTML = '<i class="ti ti-eye"></i>';
+            } else {
+                inputMotDePasse.type = "password";
+                boutonAfficher.innerHTML = '<i class="ti ti-eye-off"></i>';
+            }
+        });
+    </script>
+@endsection

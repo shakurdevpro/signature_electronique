@@ -207,7 +207,7 @@ public function destroy(Request $request)
 
 
 
- public function  dashboard(Request $request)
+ public function dashboard(Request $request)
 
  {
 
@@ -270,16 +270,114 @@ $P_DATE_FIN = $P_DATE_FIN->format('d/m/Y');
     $LISTE_CCM_SIGNE = $SignatureMod->LISTE_CCM_SIGNE($this->oracle, $loginuser, $P_DATE_DEBUT, $P_DATE_FIN);
     $NBRE_CCM_SIGNE = count($LISTE_CCM_SIGNE);
 
+      $datesInst  = $this->datesActes($LISTE_ACTES_INST,  'DATE_VALIDATION_DIRCAB');
+      $datesSigne = $this->datesActes($LISTE_ACTES_SIGNE, 'DATE_SIGNATURE');
 
+      // La fenêtre de 12 mois se termine au mois du dernier acte trouvé (ou ce mois-ci s'il n'y en a aucun)
+      $tous = array_merge($datesInst, $datesSigne);
+      $fin  = $tous ? max($tous)->copy()->startOfMonth() : Carbon::now()->startOfMonth();
 
+      $mois = [];
+      for ($i = 11; $i >= 0; $i--) {
+         $d = $fin->copy()->subMonths($i);
+         $mois[$d->format('Y-m')] = $d->format('m/Y');
+      }
 
-return view('dashboard', compact('info', 'doc', 'stat','docsigne','NBRE_CCM_INSTANCE','NBRE_CCM_SIGNE'));
-    
- }
+      $compter = function ($dates) use ($mois) {
+         $c = array_fill_keys(array_keys($mois), 0);
+         foreach ($dates as $d) {
+            $k = $d->format('Y-m');
+            if (isset($c[$k])) {
+               $c[$k]++;
+            }
+         }
+         return array_values($c);
+      };
 
+      $chartActes = [
+         'labels'   => array_values($mois),
+         'instance' => $compter($datesInst),
+         'signe'    => $compter($datesSigne),
+      ];
 
+      $parNature = [];
+      foreach ((array) $LISTE_ACTES_INST as $l) {
+         $l = (array) $l;
+         $n = (isset($l['NATURE_ACTE_LIB']) && $l['NATURE_ACTE_LIB'] !== '') ? $l['NATURE_ACTE_LIB'] : 'Non défini';
+         $parNature[$n] = (isset($parNature[$n]) ? $parNature[$n] : 0) + 1;
+      }
+      arsort($parNature);
 
+      $top    = array_slice($parNature, 0, 6, true);
+      $autres = array_sum(array_slice($parNature, 6, null, true));
+      if ($autres > 0) {
+         $top['Autres'] = $autres;
+      }
 
+      $chartDonut = ['labels' => array_keys($top), 'data' => array_values($top)];
+
+      $chartDfrc = $this->regrouper($LISTE_ACTES_INST, 'TYPECONC_LIB');
+
+      return view('dashboard', compact(
+         'info',
+         'doc',
+         'stat',
+         'docsigne',
+         'NBRE_CCM_INSTANCE',
+         'NBRE_CCM_SIGNE',
+         'chartActes',
+         'chartDonut',
+         'chartDfrc'
+      ));      }
+
+   private function parseDateActe($v)
+   {
+      $v = trim((string) $v);
+      if ($v === '') {
+         return null;
+      }
+
+      foreach (['Ymd', 'd-M-y', 'd/m/Y', 'Y-m-d'] as $format) {
+         $d   = \DateTime::createFromFormat('!' . $format, $v);
+         $err = \DateTime::getLastErrors();
+         if ($d && (!$err || ($err['warning_count'] == 0 && $err['error_count'] == 0))) {
+            return Carbon::instance($d);
+         }
+      }
+      return null;
+   }
+
+   private function datesActes($liste, $colonne)
+   {
+      $dates = [];
+      foreach ((array) $liste as $ligne) {
+         $ligne = (array) $ligne;
+         $d = $this->parseDateActe(isset($ligne[$colonne]) ? $ligne[$colonne] : '');
+         if ($d) {
+            $dates[] = $d;
+         }
+      }
+      return $dates;
+   }
+
+   private function regrouper($liste, $colonne, $max = 6)
+   {
+      $groupes = [];
+      foreach ((array) $liste as $l) {
+         $l = (array) $l;
+         $n = (isset($l[$colonne]) && $l[$colonne] !== '') ? $l[$colonne] : 'Non défini';
+         $groupes[$n] = (isset($groupes[$n]) ? $groupes[$n] : 0) + 1;
+      }
+      arsort($groupes);
+
+      $top    = array_slice($groupes, 0, $max, true);
+      $autres = array_sum(array_slice($groupes, $max, null, true));
+      if ($autres > 0) {
+         $top['Autres'] = $autres;
+      }
+
+      return ['labels' => array_keys($top), 'data' => array_values($top)];
+   }
 
 
  //DASHBOARD DE DAF##################################################################################

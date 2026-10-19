@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 
-<html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed " dir="ltr" data-theme="theme-default" data-assets-path="../../assets/" data-template="vertical-menu-template">
+<html lang="en" class="light-style layout-menu-fixed " dir="ltr" data-theme="theme-default" data-assets-path="../../assets/" data-template="horizontal-menu-template">
 
-<!-- Mirrored from demos.pixinvent.com/vuexy-html-admin-template/html/horizontal-menu-template/dashboards-crm.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Mar 2023 18:47:06 GMT -->
+<!-- Mirrored from demos.pixinvent.com/vuexy-html-admin-template/html/horizontal-menu-template/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Mar 2023 18:46:34 GMT -->
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
@@ -13,9 +13,10 @@
 
     <meta name="description" content="Start your development with a Dashboard for Bootstrap 5" />
     <meta name="keywords" content="dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5">
+    <!-- Canonical SEO -->
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{asset('img/logo.jpg')}}" />
+    <link rel="icon" type="image/x-icon" href="" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -35,11 +36,6 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
     <link rel="stylesheet" href="{{ asset('vendor/libs/node-waves/node-waves.css') }}" />
-
-    <link rel="stylesheet" href="{{ asset('vendor/libs/select2/select2.css') }}" />
-    <link rel="stylesheet" href="{{ asset('vendor/libs/tagify/tagify.css') }}" />
-    <link rel="stylesheet" href="{{ asset('vendor/libs/bootstrap-select/bootstrap-select.css') }}" />
-
     <link rel="stylesheet" href="{{ asset('vendor/libs/typeahead-js/typeahead.css') }}" />
     <link rel="stylesheet" href="{{ asset('vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}">
@@ -53,9 +49,8 @@
 
     <!-- Page CSS -->
     <link rel="stylesheet" href="{{ asset('vendor/css/pages/page-auth.css') }}">
+
     <link rel="stylesheet" href="{{ asset('vendor/css/pages/cards-advance.css') }}" />
-    <link rel="stylesheet" href="{{ asset('vendor/libs/sweetalert2/sweetalert2.css') }}" />
-    
     <!-- Helpers -->
     <script src="{{ asset('vendor/js/helpers.js') }}"></script>
 
@@ -66,7 +61,6 @@
     <script src="{{ asset('js/config.js') }}"></script>
 </head>
 <body>
-
     @yield('content')
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -75,10 +69,6 @@
     <script src="{{ asset('vendor/js/bootstrap.js') }}"></script>
     <script src="{{ asset('vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('vendor/libs/node-waves/node-waves.js') }}"></script>
-
-    <script src="{{ asset('vendor/libs/select2/select2.js') }}"></script>
-    <script src="{{ asset('vendor/libs/tagify/tagify.js') }}"></script>
-    <script src="{{ asset('vendor/libs/bootstrap-select/bootstrap-select.js') }}"></script>
 
     <script src="{{ asset('vendor/libs/hammer/hammer.js') }}"></script>
     <script src="{{ asset('vendor/libs/i18n/i18n.js') }}"></script>
@@ -99,26 +89,21 @@
 
     <script src="{{ asset('vendor/libs/apex-charts/apexcharts.js') }}"></script>
 
-    <script src="{{ asset('vendor/libs/sweetalert2/sweetalert2.js') }}"></script>
-    <script src="{{ asset('js/extended-ui-sweetalert2.js') }}"></script>
-
     <!-- Main JS -->
     <script src="{{ asset('js/main.js') }}"></script>
 
     <!-- Page JS -->
-    
     <script src="{{ asset('js/pages-auth.js') }}"></script>
     <script src="{{ asset('js/tables-datatables-basic.js') }}"></script>
-    <script src="{{ asset('js/modal-add-new-cc.js') }}"></script>
-    <script src="{{ asset('js/charts-apex.js') }}"></script>
 
-    <script src="{{ asset('js/forms-selects.js') }}"></script>
-    <script src="{{ asset('js/forms-tagify.js') }}"></script>
-    
+    <script src="{{ asset('js/charts-apex.js') }}"></script>
+    <script src="{{ asset('js/modal-add-new-cc.js') }}"></script>
+    <script>
+    </script>
 </body>
 
 
-<!-- Mirrored from demos.pixinvent.com/vuexy-html-admin-template/html/horizontal-menu-template/dashboards-crm.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Mar 2023 18:47:11 GMT -->
+<!-- Mirrored from demos.pixinvent.com/vuexy-html-admin-template/html/horizontal-menu-template/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 06 Mar 2023 18:46:38 GMT -->
 </html>
 
 <!-- beautify ignore:end -->

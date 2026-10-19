@@ -22,7 +22,7 @@ use PhpParser\Node\Stmt\TryCatch;
 
 Route::get('/', function () {
     return view('login');
-});
+})->name('login');
 
 //TEST POUR LA CONNECTION A DASHBOARD
 Route::get('/test', [SignatureController::class, 'test'])->name('test');
@@ -146,15 +146,15 @@ Route::get('/arrete_ouv_signe', [SignatureController::class, 'arrete_ouv_signe']
 
 
 //AFFICHAGE DE LA PAGE DASHBOARD MINISTRE , DAF ET DGAPCE
-Route::get('/accueil1', [SignatureController::class, 'dashboard_min'])->name('accueil');
-Route::get('/accueil2', [SignatureController::class, 'dashboard_daf'])->name('accueil');
-Route::get('/accueil3', [SignatureController::class, 'dashboard_dgapce'])->name('accueil');
-Route::get('/accueil4', [SignatureController::class, 'dashboard_ccm'])->name('accueil');
+Route::get('/accueil1', [SignatureController::class, 'dashboard_min'])->name('accueil.min');
+Route::get('/accueil2', [SignatureController::class, 'dashboard_daf'])->name('accueil.daf');
+Route::get('/accueil3', [SignatureController::class, 'dashboard_dgapce'])->name('accueil.dgapce');
+Route::get('/accueil4', [SignatureController::class, 'dashboard_ccm'])->name('accueil.ccm');
 
-Route::get('/stat1', [SignatureController::class, 'signe_min'])->name('sat');
-Route::get('/stat2', [SignatureController::class, 'signe_daf'])->name('sat');
-Route::get('/stat3', [SignatureController::class, 'signe_dgapce'])->name('sat');
-Route::get('/stat4', [SignatureController::class, 'signe_ccm'])->name('sat');
+Route::get('/stat1', [SignatureController::class, 'signe_min'])->name('sat.min');
+Route::get('/stat2', [SignatureController::class, 'signe_daf'])->name('sat.daf');
+Route::get('/stat3', [SignatureController::class, 'signe_dgapce'])->name('sat.dgapce');
+Route::get('/stat4', [SignatureController::class, 'signe_ccm'])->name('sat.ccm');
 
 
 

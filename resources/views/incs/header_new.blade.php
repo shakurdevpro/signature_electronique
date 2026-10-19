@@ -42,7 +42,7 @@
                           <small class="text-muted">{{$info['FONCTION']}}</small>
                         </div>
                       </div>
-                    </a>
+                    </a>  
                   </li>
                   <li>
                     <div class="dropdown-divider"></div>
