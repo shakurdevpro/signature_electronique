@@ -9,6 +9,15 @@
             <h3 class="nk-block-title page-title">
                 {{ $pageTitle }}
             </h3>
+            @if ($currentRoute === 'instance')
+                <div class="nk-block-des text-soft">
+                    <p>
+                        Vous avez {{ number_format($totalInstances, 0, ',', ' ') }}
+                        {{ $totalInstances > 1 ? 'actes' : 'acte' }}
+                        en instance de signature.
+                    </p>
+                </div>
+            @endif
         </div>
     </div>
 </div>

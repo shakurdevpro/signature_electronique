@@ -206,80 +206,80 @@
 
 
 
-                  <!-- ######################################################## DFRC ############################################## -->
-    
-    <?php  if ($info['LOGINUSER'] == 'K349954') { ?>                
-  <a class="btn btn-primary d-block mx-auto waves-effect waves-light" style="background-color: silver; border-color: silver; border-radius: 1px 0 3px 4px !important;"> DFRC</a>
-  <br>
-  <?php } ?>
-                  <?php if ($info['LOGINUSER']== 'K349954') { ?>         
-                      <div class="row">
-                        @php 
-                        $NBRE_COMM=$stat['NBRE_COMM'];
-                        $NBRE_ARR_ADM=$stat['NBRE_ARR_ADM'];
-                        $NBRE_MF=$stat['NBRE_MF'];
-                        $NBRE_FF=$stat['NBRE_FF'];
-                        $NBRE_COMM_OUVR=$stat['NBRE_COMM_OUVR'];
-                        $NBRE_ARR_OUVR=$stat['NBRE_ARR_OUVR'];
-                        @endphp
+                <!-- ######################################################## DFRC ############################################## -->
+  
+  <?php  if ($info['LOGINUSER'] == 'K349954') { ?>                
+ <a class="btn btn-primary d-block mx-auto waves-effect waves-light" style="background-color: silver; border-color: silver; border-radius: 1px 0 3px 4px !important;"> DFRC</a>
+ <br>
+ <?php } ?>
+                <?php if ($info['LOGINUSER']== 'K349954') { ?>         
+                    <div class="row">
+                      @php 
+                      $NBRE_COMM=$stat['NBRE_COMM'];
+                      $NBRE_ARR_ADM=$stat['NBRE_ARR_ADM'];
+                      $NBRE_MF=$stat['NBRE_MF'];
+                      $NBRE_FF=$stat['NBRE_FF'];
+                      $NBRE_COMM_OUVR=$stat['NBRE_COMM_OUVR'];
+                      $NBRE_ARR_OUVR=$stat['NBRE_ARR_OUVR'];
+                      @endphp
 
-                          <input type="hidden" value ="{{$NBRE_MF}}" id="NBRE_MF">
-                          <input type="hidden" value ="{{$NBRE_FF}}" id="NBRE_FF">
-                          <input type="hidden" value ="{{$NBRE_COMM}}" id="NBRE_COMM">
-                          <input type="hidden" value ="{{$NBRE_ARR_ADM}}" id="NBRE_ARR_ADM">
+                        <input type="hidden" value ="{{$NBRE_MF}}" id="NBRE_MF">
+                        <input type="hidden" value ="{{$NBRE_FF}}" id="NBRE_FF">
+                        <input type="hidden" value ="{{$NBRE_COMM}}" id="NBRE_COMM">
+                        <input type="hidden" value ="{{$NBRE_ARR_ADM}}" id="NBRE_ARR_ADM">
 
-                          <input type="hidden" value ="{{$NBRE_COMM_OUVR}}" id="NBRE_COMM_OUVR">
-                          <input type="hidden" value ="{{$NBRE_ARR_OUVR}}" id="NBRE_ARR_OUVR">
-                        
-                      <!-- Cards with few info -->
+                        <input type="hidden" value ="{{$NBRE_COMM_OUVR}}" id="NBRE_COMM_OUVR">
+                        <input type="hidden" value ="{{$NBRE_ARR_OUVR}}" id="NBRE_ARR_OUVR">
                       
-                      <div class="col-lg-6 col-sm-6 mb-4">
-                        <div class="card">
-                          <div class="card-body d-flex justify-content-between align-items-center">
-                            <div class="card-title mb-0">
-                                <h5 class="m-0 me-2">Mise en formation</h5>
-                                <hr>
+                     <!-- Cards with few info -->
+                     
+                     <div class="col-lg-6 col-sm-6 mb-4">
+                       <div class="card">
+                         <div class="card-body d-flex justify-content-between align-items-center">
+                           <div class="card-title mb-0">
+                               <h5 class="m-0 me-2">Mise en formation</h5>
+                               <hr>
 
 
-                                <h2 class="mb-0">{{$NBRE_MF}}</h2>
-                            </div>
-                            <div class="card-icon">
-                              <span class="badge bg-label-primary rounded-pill p-2">
-                                <i class='ti ti-files ti-sm'></i>
-                              </span>
-                            </div>
-                          </div>
+                               <h2 class="mb-0">{{$NBRE_MF}}</h2>
+                           </div>
+                           <div class="card-icon">
+                             <span class="badge bg-label-primary rounded-pill p-2">
+                               <i class='ti ti-files ti-sm'></i>
+                             </span>
+                           </div>
+                         </div>
 
-  <a href="{{route('mise_formation')}}" class="btn btn-primary waves-effect waves-light" style = "background-color: #28c76f !important; border-color:#28c76f; border-radius: 1px 0 3px 4px !important;" >
-                            <span class="ti-xs ti ti-eye me-1"></span>VOIR LA LISTE
-                          </a>
-                        </div>
-                      </div>
-                      <div class="col-lg-6 col-sm-6 mb-4">
-                        <div class="card">
-                          <div class="card-body d-flex justify-content-between align-items-center">
-                            <div class="card-title mb-0">
-                              <h5 class="m-0 me-2">Fin de formation</h5>
-                              <hr>
-                              <h2 class="mb-0">{{$NBRE_FF}}</h2>
-                            </div>
-                            <div class="card-icon">
-                              <span class="badge bg-label-success rounded-pill p-2">
-                                <i class='ti ti-book ti-sm'></i>
-                              </span>
-                            </div>
-                          </div>
+ <a href="{{route('mise_formation')}}" class="btn btn-primary waves-effect waves-light" style = "background-color: #28c76f !important; border-color:#28c76f; border-radius: 1px 0 3px 4px !important;" >
+                          <span class="ti-xs ti ti-eye me-1"></span>VOIR LA LISTE
+                         </a>
+                       </div>
+                     </div>
+                     <div class="col-lg-6 col-sm-6 mb-4">
+                       <div class="card">
+                         <div class="card-body d-flex justify-content-between align-items-center">
+                           <div class="card-title mb-0">
+                             <h5 class="m-0 me-2">Fin de formation</h5>
+                             <hr>
+                             <h2 class="mb-0">{{$NBRE_FF}}</h2>
+                           </div>
+                           <div class="card-icon">
+                             <span class="badge bg-label-success rounded-pill p-2">
+                               <i class='ti ti-book ti-sm'></i>
+                             </span>
+                           </div>
+                         </div>
 
-  <a href="{{route('fin_formation')}}" class="btn btn-primary waves-effect waves-light" style = "background-color: #28c76f !important; border-color:#28c76f; border-radius: 1px 0 3px 4px !important;" >
-                            <span class="ti-xs ti ti-eye me-1"></span>VOIR LA LISTE
-                          </a>
-                        </div>
-                      </div>
+ <a href="{{route('fin_formation')}}" class="btn btn-primary waves-effect waves-light" style = "background-color: #28c76f !important; border-color:#28c76f; border-radius: 1px 0 3px 4px !important;" >
+                          <span class="ti-xs ti ti-eye me-1"></span>VOIR LA LISTE
+                         </a>
+                       </div>
+                     </div>
+                 
                   
-                    
-                    
-                    
-                      </div>
+                   
+                   
+                    </div>
 
 
                     <!-- Donut Chart -->
@@ -665,72 +665,73 @@
                     <!-- ######################################################## FIN DAF ############################################## -->
 
 
-@php
-    $fonction = isset($info['FONCTION']) ? $info['FONCTION'] : '';
 
-    $ccmDef = [
-        ['id' => 'INST',  'title' => 'Mes documents à signer', 'value' => (int) $NBRE_CCM_INSTANCE, 'route' => 'ccm_instance', 'color' => '#F4A261'],
-        ['id' => 'SIGNE', 'title' => 'Documents signés',       'value' => (int) $NBRE_CCM_SIGNE,    'route' => 'ccm_signe',    'color' => '#2A9D8F'],
-    ];
+                     <!-- ######################################################## CCM  ############################################## AND $info['LOGINUSER'] != 'X505234' -->
 
-    $ccmChart = [];
-    foreach ($ccmDef as $d) {
-        $ccmChart[] = [
-            'id'    => 'chart_ccm_' . $d['id'],
-            'title' => $d['title'],
-            'color' => $d['color'],
-            'data'  => array_fill(0, 7, $d['value']),
-        ];
-    }
-@endphp
+          <?php  if ($info['LOGINUSER'] == 'T279354' OR $info['LOGINUSER'] == 'Z444473' OR $info['FONCTION']== 'MINISTRE' ) { ?>
+          <br>                
+         <a class="btn btn-primary d-block mx-auto waves-effect waves-light" style="background-color: silver; border-color: silver; border-radius: 1px 0 3px 4px !important;"> ACTES DE MISE EN FORMATION HORS CÔTE D'IVOIRE</a>
+         <br>
+         <?php } ?>
+                <?php if ($info['FONCTION']== 'MINISTRE'  ) { ?>         
+                    <div class="row">
+                      @php 
+                      $NBRE_AP=$stat['NBRE_AP'];
+                      $NBRE_DP=$stat['NBRE_DP'];
+                      @endphp
 
-@if (in_array($info['LOGINUSER'], ['T279354', 'Z444473']) || $fonction == 'MINISTRE')
-    <div class="col-12">
-        <a class="btn btn-primary d-block mx-auto"
-            style="background-color: silver; border-color: silver; border-radius: 1px 0 3px 4px !important;">ACTES DE MISE EN FORMATION HORS CÔTE D'IVOIRE</a>
-    </div>
-@endif
+                        <input type="hidden" value ="{{$NBRE_CCM_INSTANCE}}" id="NBRE_CCM_INSTANCE">
+                        <input type="hidden" value ="{{$NBRE_CCM_SIGNE}}" id="NBRE_CCM_SIGNE">
+                      
+                     <!-- Cards with few info -->
+                     
+                     <div class="col-lg-6 col-sm-6 mb-4">
+                       <div class="card">
+                         <div class="card-body d-flex justify-content-between align-items-center">
+                           <div class="card-title mb-0" id="actualiser">
+                               <h5 class="m-0 me-2">Mes documents a signer</h5>
+                               <hr>
 
-@if ($fonction == 'MINISTRE')
-    @foreach ($ccmDef as $c)
-        <div class="col-xxl-3 col-sm-6">
-            <div class="card">
-                <div class="nk-ecwg nk-ecwg6">
-                    <div class="card-inner">
-                        <div class="card-title-group">
-                            <div class="card-title">
-                                <h6 class="title">{{ $c['title'] }}</h6>
-                            </div>
-                        </div>
-                        <div class="data">
-                            <div class="data-group">
-                                <div class="amount">{{ number_format($c['value'], 0, ',', ' ') }}</div>
-                                <div class="nk-ecwg6-ck">
-                                    <canvas class="ecommerce-line-chart-s3" id="chart_ccm_{{ $c['id'] }}"></canvas>
-                                </div>
-                            </div>
-                            <div class="info d-flex justify-content-between align-items-center w-100">
-                                <div class="d-flex align-items-center flex-wrap">
-                                    <span class="change up text-danger">—</span>
-                                    <span style="margin-left: 4px;">par rapport à la semaine dernière</span>
-                                </div>
 
-                                @if (Route::has($c['route']))
-                                    <a href="{{ route($c['route']) }}"
-                                        class="btn btn-sm btn-round flex-shrink-0"
-                                        style="background-color: {{ $c['color'] }}1A; color: {{ $c['color'] }}; border: 1px solid {{ $c['color'] }}33;">
-                                        <em class="icon ni ni-eye"></em>
-                                        <span>Voir la liste</span>
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </div><!-- .card-inner -->
-                </div><!-- .nk-ecwg -->
-            </div><!-- .card -->
-        </div><!-- .col -->
-    @endforeach
-@endif
+                               <h2 class="mb-0">{{$NBRE_CCM_INSTANCE}}</h2>
+                           </div>
+                           <div class="card-icon">
+                             <span class="badge bg-label-primary rounded-pill p-2">
+                               <i class='ti ti-files ti-sm'></i>
+                             </span>
+                           </div>
+                         </div>
+
+ <a href="{{route('ccm_instance')}}" class="btn btn-primary waves-effect waves-light" style = "background-color: #28c76f !important; border-color:#28c76f; border-radius: 1px 0 3px 4px !important;" >
+                          <span class="ti-xs ti ti-eye me-1"></span>VOIR LA LISTE
+                         </a>
+                       </div>
+                     </div>
+                     <div class="col-lg-6 col-sm-6 mb-4" >
+                       <div class="card">
+                         <div class="card-body d-flex justify-content-between align-items-center">
+                           <div class="card-title mb-0" id="actualiser1">
+                             <h5 class="m-0 me-2">documents signés </h5>
+                             <hr>
+                             <h2 class="mb-0">{{$NBRE_CCM_SIGNE}}</h2>
+                           </div>
+                           <div class="card-icon">
+                             <span class="badge bg-label-success rounded-pill p-2">
+                               <i class='ti ti-book ti-sm'></i>
+                             </span>
+                           </div>
+                         </div>
+
+ <a href="{{route('ccm_signe')}}" class="btn btn-primary waves-effect waves-light" style = "background-color: #28c76f !important; border-color:#28c76f; border-radius: 1px 0 3px 4px !important;" >
+                          <span class="ti-xs ti ti-eye me-1"></span>VOIR LA LISTE
+                         </a>
+                       </div>
+                     </div>
+                   
+                     
+                    </div>
+
+
                     <!-- Donut Chart -->
                                         
      <?php  if ($info['FONCTION'] == 'MINISTRE' && $info['LOGINUSER'] != 'Z444473') { ?>  

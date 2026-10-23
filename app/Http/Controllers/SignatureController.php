@@ -790,14 +790,37 @@ return view('dashboard_ccm', compact('info', 'doc', 'stat','docsigne'));
     $LISTE_ACTES_SIGNE = $SignatureMod->LISTE_ACTES_SIGNE($this->oracle, $loginuser, $fonction);
 
 
-   
+      // Récupération de la liste des actes en instance
+      $LISTE_ACTES_INST = $SignatureMod->LISTE_ACTES_INST(
+         $this->oracle,
+         $loginuser,
+         $fonction
+      );
+
+      // Calcul du nombre total d'actes en instance
+      $totalInstances = is_countable($LISTE_ACTES_INST)
+         ? count($LISTE_ACTES_INST)
+         : 0;
+
+      // Récupération de la liste des actes signés
+      $LISTE_ACTES_SIGNE = $SignatureMod->LISTE_ACTES_SIGNE(
+         $this->oracle,
+         $loginuser,
+         $fonction
+      );
 
 
     $request->session()->put('DOCUMENTS', $LISTE_ACTES_INST);
     $doc = $request->session()->get('DOCUMENTS');
 
-    return view('instance', compact('info', 'doc', 'stat','docsigne'));
- }
+      return view('instance', compact(
+         'info',
+         'doc',
+         'stat',
+         'docsigne',
+         'totalInstances'
+      ));
+}
 
 //**************************************STAT DES ACTES SIGNE********************************************************** */
 

@@ -793,14 +793,14 @@ $concoursCards = array_values(
                                         'title' => 'Mes documents à signer',
                                         'value' => (int) $NBRE_CCM_INSTANCE,
                                         'route' => 'ccm_instance',
-                                        'color' => '#F4A261',
+                                        'color' => '#e36414',
                                     ],
                                     [
                                         'id' => 'SIGNE',
                                         'title' => 'Documents signés',
                                         'value' => (int) $NBRE_CCM_SIGNE,
                                         'route' => 'ccm_signe',
-                                        'color' => '#2A9D8F',
+                                        'color' => '#0f4c5c',
                                     ],
                                 ];
 
@@ -877,7 +877,43 @@ $concoursCards = array_values(
                                 @endforeach
                             @endif
 
-                            
+@php
+    $ccmDonut = ['labels' => [], 'data' => [], 'colors' => []];
+    foreach ($ccmDef as $d) {
+        $ccmDonut['labels'][] = $d['title'];
+        $ccmDonut['data'][]   = $d['value'];
+        $ccmDonut['colors'][] = $d['color'];
+    }
+@endphp
+
+@if ($fonction == 'MINISTRE' && $info['LOGINUSER'] != 'Z444473')
+    <div class="col-xxl-12 col-md-6">
+        <div class="card card-full overflow-hidden">
+            <div class="nk-ecwg nk-ecwg7 h-100">
+                <div class="card-inner flex-grow-1">
+                    <div class="card-title-group mb-4">
+                        <div class="card-title">
+                            <h6 class="title">Documents à signer et signés</h6>
+                        </div>
+                    </div>
+                    <div class="nk-ecwg7-ck">
+                        <canvas class="ecommerce-doughnut-s1" id="chart_ccm"></canvas>
+                    </div>
+                    <ul class="nk-ecwg7-legends">
+                        @foreach ($ccmDonut['labels'] as $i => $label)
+                            <li>
+                                <div class="title">
+                                    <span class="dot dot-lg sq" data-bg="{{ $ccmDonut['colors'][$i] }}"></span>
+                                    <span>{{ $label }} ({{ $ccmDonut['data'][$i] }})</span>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div><!-- .card-inner -->
+            </div>
+        </div><!-- .card -->
+    </div><!-- .col -->
+@endif
 
                         </div><!-- .row -->
                     </div><!-- .nk-block -->
@@ -1056,4 +1092,17 @@ $concoursCards = array_values(
             });
         })();
     </script>
+    <script>
+    window.dashCharts = window.dashCharts || {};
+    window.dashCharts['chart_ccm'] = {
+        labels: @json($ccmDonut['labels']),
+        dataUnit: 'documents',
+        legend: false,
+        datasets: [{
+            borderColor: "#fff",
+            background: @json($ccmDonut['colors']),
+            data: @json($ccmDonut['data'])
+        }]
+    };
+</script>
 @endsection
