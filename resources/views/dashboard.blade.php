@@ -8,169 +8,26 @@
 @endsection
 
 @section('content')
+
+    @php
+        extract(\App\Support\StatCardsData::build($stat));
+    @endphp
+
     <!-- content -->
     <div class="nk-content ">
         <div class="container-fluid">
             <div class="nk-content-inner">
                 <div class="nk-content-body">
+
                     @include('components.pagetitle')
+
                     <div class="nk-block">
 
                         <div class="row g-gs">
 
-                            @php
-                                $cards = [
-                                    [
-                                        'id' => 'MF',
-                                        'title' => 'Mise <br/> en formation',
-                                        'key' => 'NBRE_MF',
-                                        'color' => '#F4A261', // Mise en formation
-                                    ],
-                                    [
-                                        'id' => 'FF',
-                                        'title' => 'Fin <br/> de formation',
-                                        'key' => 'NBRE_FF',
-                                        'color' => '#2A9D8F', // Fin de formation
-                                    ],
-                                    [
-                                        'id' => 'COMM',
-                                        'title' => "Communiqué <br/> d'admission",
-                                        'key' => 'NBRE_COMM',
-                                        'color' => '#E9C46A', // Communiqué d'admission
-    ],
-    [
-        'id' => 'ARR_ADM',
-        'title' => "Arrêté <br/> d'admission",
-        'key' => 'NBRE_ARR_ADM',
-        'color' => '#E76F51', // Arrêté d'admission
-    ],
-    [
-        'id' => 'COMM_OUVR',
-        'title' => "Communiqué <br/> d'ouverture",
-        'key' => 'NBRE_COMM_OUVR',
-        'color' => '#264653', // Communiqué d'ouverture
-                                    ],
-                                    [
-                                        'id' => 'ARR_OUVR',
-                                        'title' => "Arrêté <br/> d'ouverture",
-                                        'key' => 'NBRE_ARR_OUVR',
-                                        'color' => '#913D30', // Arrêté d'ouverture
-    ],
-];
 
-$chartData = [];
+                            <x-stat-cards :stat="$stat" :info="$info" />
 
-foreach ($cards as $i => $c) {
-    $value = (int) $stat[$c['key']];
-    $serieKey = 'SERIE_' . $c['id'];
-
-    // Série réelle si le contrôleur la fournit,
-    // sinon ligne plate sur la vraie valeur.
-    if (isset($stat[$serieKey]) && count($stat[$serieKey]) >= 2) {
-        $serie = array_values($stat[$serieKey]);
-
-        $last = end($serie);
-        $prev = prev($serie);
-
-        $pct = $prev != 0 ? round((($last - $prev) / $prev) * 100, 2) : null;
-    } else {
-        $serie = array_fill(0, 7, $value);
-        $pct = null;
-    }
-
-    $cards[$i]['value'] = $value;
-    $cards[$i]['pct'] = $pct;
-
-    $chartData[] = [
-        'id' => 'chart_' . $c['id'],
-        'title' => $c['title'],
-        'color' => $c['color'],
-        'data' => $serie,
-    ];
-}
-
-// Cartes DFRC : on réutilise les données déjà calculées pour MF et FF
-$dfrcRoutes = [
-    'MF' => 'mise_formation',
-    'FF' => 'fin_formation',
-];
-
-$routesCards = [
-    'MF' => 'mise_formation',
-    'FF' => 'fin_formation',
-    'COMM' => 'communique',
-    'ARR_ADM' => 'arrete',
-    'COMM_OUVR' => 'comm_ouv',
-    'ARR_OUVR' => 'arrete_ouv',
-];
-$dfrcTitres = [
-    'MF' => 'Mise en formation',
-    'FF' => 'Fin de formation',
-];
-$dfrcCards = array_values(
-    array_filter($cards, function ($c) use ($dfrcRoutes) {
-        return isset($dfrcRoutes[$c['id']]);
-    }),
-);
-
-$chartLabels = isset($stat['SERIE_LABELS']) ? $stat['SERIE_LABELS'] : null;
-                            @endphp
-
-
-                            @if (in_array($info['LOGINUSER'], ['X505234', 'Z444473', 'T279354']))
-                                @foreach ($cards as $c)
-                                    <div class="col-xxl-2 col-sm-6">
-                                        <div class="card">
-                                            <div class="nk-ecwg nk-ecwg6">
-                                                <div class="card-inner">
-                                                    <div class="card-title-group">
-                                                        <div class="card-title">
-                                                            <h6 class="title">{!! $c['title'] !!}</h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="data">
-                                                        <div class="data-group">
-                                                            <div class="amount">
-                                                                {{ number_format($c['value'], 0, ',', ' ') }}</div>
-                                                            <div class="nk-ecwg6-ck">
-                                                                <canvas class="ecommerce-line-chart-s3"
-                                                                    id="chart_{{ $c['id'] }}"></canvas>
-                                                            </div>
-                                                        </div>
-                                                        <div class="info">
-                                                            @if ($c['pct'] === null)
-                                                                <span class="change up text-danger">—</span>
-                                                            @elseif ($c['pct'] >= 0)
-                                                                <span class="change up text-danger">
-                                                                    <em
-                                                                        class="icon ni ni-arrow-long-up"></em>{{ abs($c['pct']) }}%
-                                                                </span>
-                                                            @else
-                                                                <span class="change down text-danger">
-                                                                    <em
-                                                                        class="icon ni ni-arrow-long-down"></em>{{ abs($c['pct']) }}%
-                                                                </span>
-                                                            @endif
-                                                            <span class="ms-2">par rapport à la semaine dernière</span>
-                                                        </div>
-
-                                                        @if (isset($routesCards[$c['id']]) && Route::has($routesCards[$c['id']]))
-                                                            <div class="mt-3">
-                                                                <a href="{{ route($routesCards[$c['id']]) }}"
-                                                                    class="btn btn-sm btn-round flex-shrink-0"
-                                                                    style="background-color: {{ $c['color'] }}1A; color: {{ $c['color'] }}; border: 1px solid {{ $c['color'] }}33;">
-                                                                    <em class="icon ni ni-eye"></em>
-                                                                    <span>Voir la liste</span>
-                                                                </a>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div><!-- .card-inner -->
-                                            </div><!-- .nk-ecwg -->
-                                        </div><!-- .card -->
-                                    </div><!-- .col -->
-                                @endforeach
-                            @endif
 
                             <div class="col-xxl-6">
                                 <div class="card card-full">
@@ -377,13 +234,13 @@ $chartLabels = isset($stat['SERIE_LABELS']) ? $stat['SERIE_LABELS'] : null;
                                 $chartDfrc = $chartDfrc ?? ['labels' => [], 'data' => []];
 
                                 $paletteDfrc = [
-                                    '#FFE66D',
-                                    '#FF6B6B',
-                                    '#4ECDC4',
-                                    '#d00000',
-                                    '#a31621',
-                                    '#40434e',
-                                    '#8b786d',
+                                    '#219ebc',
+                                    '#14213D',
+                                    '#FCA311',
+                                    '#E5E5E5',
+                                    '#8ecae6',
+                                    '#fb8500',
+                                    '#344e41',
                                 ];
                                 $nbDfrc = count($paletteDfrc);
 
@@ -430,10 +287,10 @@ $chartLabels = isset($stat['SERIE_LABELS']) ? $stat['SERIE_LABELS'] : null;
 
                             @php
                                 // Cartes CONCOURS : mêmes données que l'ancienne vue (COMM, ARR_ADM, COMM_OUVR, ARR_OUVR)
-$concoursIds = ['COMM', 'ARR_ADM', 'COMM_OUVR', 'ARR_OUVR'];
-$concoursCards = array_values(
-    array_filter($cards, function ($c) use ($concoursIds) {
-        return in_array($c['id'], $concoursIds);
+                                $concoursIds = ['COMM', 'ARR_ADM', 'COMM_OUVR', 'ARR_OUVR'];
+                                $concoursCards = array_values(
+                                    array_filter($cards, function ($c) use ($concoursIds) {
+                                        return in_array($c['id'], $concoursIds);
                                     }),
                                 );
                             @endphp
@@ -877,43 +734,46 @@ $concoursCards = array_values(
                                 @endforeach
                             @endif
 
-@php
-    $ccmDonut = ['labels' => [], 'data' => [], 'colors' => []];
-    foreach ($ccmDef as $d) {
-        $ccmDonut['labels'][] = $d['title'];
-        $ccmDonut['data'][]   = $d['value'];
-        $ccmDonut['colors'][] = $d['color'];
-    }
-@endphp
+                            @php
+                                $ccmDonut = ['labels' => [], 'data' => [], 'colors' => []];
+                                foreach ($ccmDef as $d) {
+                                    $ccmDonut['labels'][] = $d['title'];
+                                    $ccmDonut['data'][] = $d['value'];
+                                    $ccmDonut['colors'][] = $d['color'];
+                                }
+                            @endphp
 
-@if ($fonction == 'MINISTRE' && $info['LOGINUSER'] != 'Z444473')
-    <div class="col-xxl-12 col-md-6">
-        <div class="card card-full overflow-hidden">
-            <div class="nk-ecwg nk-ecwg7 h-100">
-                <div class="card-inner flex-grow-1">
-                    <div class="card-title-group mb-4">
-                        <div class="card-title">
-                            <h6 class="title">Documents à signer et signés</h6>
-                        </div>
-                    </div>
-                    <div class="nk-ecwg7-ck">
-                        <canvas class="ecommerce-doughnut-s1" id="chart_ccm"></canvas>
-                    </div>
-                    <ul class="nk-ecwg7-legends">
-                        @foreach ($ccmDonut['labels'] as $i => $label)
-                            <li>
-                                <div class="title">
-                                    <span class="dot dot-lg sq" data-bg="{{ $ccmDonut['colors'][$i] }}"></span>
-                                    <span>{{ $label }} ({{ $ccmDonut['data'][$i] }})</span>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div><!-- .card-inner -->
-            </div>
-        </div><!-- .card -->
-    </div><!-- .col -->
-@endif
+                            @if ($fonction == 'MINISTRE' && $info['LOGINUSER'] != 'Z444473')
+                                <div class="col-xxl-12">
+                                    <div class="card card-full overflow-hidden">
+                                        <div class="nk-ecwg nk-ecwg7 h-100">
+                                            <div class="card-inner flex-grow-1">
+                                                <div class="card-title-group mb-4">
+                                                    <div class="card-title">
+                                                        <h6 class="title">Documents à signer et signés</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="nk-ecwg7-ck">
+                                                    <canvas class="ecommerce-doughnut-s1" id="chart_ccm"></canvas>
+                                                </div>
+                                                <ul class="nk-ecwg7-legends">
+                                                    @foreach ($ccmDonut['labels'] as $i => $label)
+                                                        <li>
+                                                            <div class="title">
+                                                                <span class="dot dot-lg sq"
+                                                                    data-bg="{{ $ccmDonut['colors'][$i] }}"></span>
+                                                                <span>{{ $label }}
+                                                                    ({{ $ccmDonut['data'][$i] }})
+                                                                </span>
+                                                            </div>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div><!-- .card-inner -->
+                                        </div>
+                                    </div><!-- .card -->
+                                </div><!-- .col -->
+                            @endif
 
                         </div><!-- .row -->
                     </div><!-- .nk-block -->
@@ -927,6 +787,8 @@ $concoursCards = array_values(
 @endsection
 
 @section('scripts')
+
+
     <script>
         console.log('[VUE] script dashCharts exécuté');
         window.dashCharts = window.dashCharts || {};
@@ -1093,16 +955,16 @@ $concoursCards = array_values(
         })();
     </script>
     <script>
-    window.dashCharts = window.dashCharts || {};
-    window.dashCharts['chart_ccm'] = {
-        labels: @json($ccmDonut['labels']),
-        dataUnit: 'documents',
-        legend: false,
-        datasets: [{
-            borderColor: "#fff",
-            background: @json($ccmDonut['colors']),
-            data: @json($ccmDonut['data'])
-        }]
-    };
-</script>
+        window.dashCharts = window.dashCharts || {};
+        window.dashCharts['chart_ccm'] = {
+            labels: @json($ccmDonut['labels']),
+            dataUnit: 'documents',
+            legend: false,
+            datasets: [{
+                borderColor: "#fff",
+                background: @json($ccmDonut['colors']),
+                data: @json($ccmDonut['data'])
+            }]
+        };
+    </script>
 @endsection

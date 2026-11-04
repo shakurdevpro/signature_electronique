@@ -60,7 +60,7 @@ return [
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]) : [],
+                            ]) : [],
         ],
 
         'pgsql' => [
@@ -116,41 +116,41 @@ return [
 
 
 
-###########################BIOMETRIE#################################
+        ###########################BIOMETRIE#################################
 
 
 
 
         // <-- Ajoute ta connexion externe ici
-'mysql_sigfae' => [
-    'driver' => 'mysql',
-    'host' => env('DB_SIGFAE_HOST', '10.101.101.106'),
-    'port' => env('DB_SIGFAE_PORT', '3306'),
-    'database' => env('DB_SIGFAE_DB', 'dba_mfprasitepro'),
-    'username' => env('DB_SIGFAE_USER', 'cockpit'),
-    'password' => env('DB_SIGFAE_PASSWORD', 'c033@ndeR'),
-    'charset' => 'utf8',
-    'collation' => 'utf8_unicode_ci',
-    'prefix' => '',
-    'strict' => false,
-    'engine' => null,
-],
+        'mysql_sigfae' => [
+            'driver' => 'mysql',
+            'host' => env('DB_SIGFAE_HOST', '10.101.101.106'),
+            'port' => env('DB_SIGFAE_PORT', '3306'),
+            'database' => env('DB_SIGFAE_DB', 'dba_mfprasitepro'),
+            'username' => env('DB_SIGFAE_USER', 'cockpit'),
+            'password' => env('DB_SIGFAE_PASSWORD', 'c033@ndeR'),
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+            'strict' => false,
+            'engine' => null,
+        ],
 
 
 
-'mssql_biometrie' => [
-    'driver' => 'sqlsrv',
-    'host' => env('DB_BIOMETRIE_HOST'),
-    'port' => env('DB_BIOMETRIE_PORT'),
-    'database' => env('DB_BIOMETRIE_DB'),
-    'username' => env('DB_BIOMETRIE_USER'),
-    'password' => env('DB_BIOMETRIE_PASSWORD'),
-    'charset' => 'utf8',
-    'prefix' => '',
-    'trust_server_certificate' => true,
-],
+        'mssql_biometrie' => [
+            'driver' => 'sqlsrv',
+            'host' => env('DB_BIOMETRIE_HOST'),
+            'port' => env('DB_BIOMETRIE_PORT'),
+            'database' => env('DB_BIOMETRIE_DB'),
+            'username' => env('DB_BIOMETRIE_USER'),
+            'password' => env('DB_BIOMETRIE_PASSWORD'),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'trust_server_certificate' => true,
+        ],
 
-/* 'connexion_oracl' => [
+        /* 'connexion_oracl' => [
     'driver'       => 'oracle',
     'tns'          => '',                  // vide si tu utilises host+port+service_name
     'host'         => env('DB_ORACLE_HOST', '192.168.6.37'),
@@ -164,15 +164,15 @@ return [
 ],
  */
 
-'connexion_oracl' => [
-    'driver'   => 'oracle',
-    'tns'      => '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.6.37)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=dbmfpe.mfp.ci)))',
-    'database' => 'dbmfpe.mfp.ci', // obligatoire
-    'username' => env('DB_ORACLE_USERNAME', 'UT_SIGNATURE'),
-    'password' => env('DB_ORACLE_PASSWORD', 'uSIGNATURE'),
-    'charset'  => 'AL32UTF8',
-    'prefix'   => '',
-],
+        'connexion_oracl' => [
+            'driver'   => 'oracle',
+            'tns'      => '(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.6.37)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=dbmfpe.mfp.ci)))',
+            'database' => 'dbmfpe.mfp.ci', // obligatoire
+            'username' => env('DB_ORACLE_USERNAME', 'UT_SIGNATURE'),
+            'password' => env('DB_ORACLE_PASSWORD', 'uSIGNATURE'),
+            'charset'  => 'AL32UTF8',
+            'prefix'   => '',
+        ],
 
 
 
@@ -190,7 +190,7 @@ return [
 
 
 
-######################################################################
+        ######################################################################
 
 
 
@@ -244,7 +244,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
         ],
 
         'default' => [
