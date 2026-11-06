@@ -2738,7 +2738,7 @@ pre code {
 
 .form-control:focus,
 .dual-listbox .dual-listbox__search:focus {
-  color: #dee2e6;
+  color: #000000;
   background-color: #fff;
   border-color: #127D3F;
   outline: 0;
@@ -6292,12 +6292,16 @@ input[type="button"].btn-block {
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #066F37 ;
-  border-color: #066F37 ;
+  background-color: rgb(253,
+    116,
+    1);
+  border-color: rgb(253,
+    116,
+    1);
 }
 
 .page-item.disabled .page-link {
-  color: #dbdfea;
+  color: #8094ae;
   pointer-events: none;
   cursor: auto;
   background-color: #fff;
@@ -22929,7 +22933,7 @@ ol.linenums li {
 }
 
 .select2-container--default .select2-selection--single:focus {
-  box-shadow: 0 0 0 3px rgba(133, 79, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(32, 100, 98, 0.1);
   border-color: #854fff;
   outline: none;
 }
@@ -32548,7 +32552,7 @@ span[data-toggle=tooltip]:focus {
 }
 
 .dot-primary {
-  background: #854fff;
+  background: #FD7401 !important;
 }
 
 .dot-secondary {
